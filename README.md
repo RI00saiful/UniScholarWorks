@@ -6,7 +6,7 @@ A web application for managing and reviewing university academic reports. Studen
 
 ## Demo
 
-[![UniScholarWorks Demo](https://img.youtube.com/vi/IiQgX3hbQHs/0.jpg)](https://youtu.be/IiQgX3hbQHs)
+[![UniScholarWorks Demo](https://img.youtube.com/vi/IiQgX3hbQHs/0.jpg)](https://youtu.be/IiQgX3hbQHs?vq=hd720)
 
 > Click the thumbnail above to watch the demo video.
 
