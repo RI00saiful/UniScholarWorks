@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Submissions - UniScholarWorks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        
+        .navbar {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 15px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-brand {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .navbar-brand span {
+            color: #6c63ff;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .navbar-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .navbar-links a:hover {
+            color: #fff;
+        }
+
+        .logout-btn {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-title {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        
+        .report-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .report-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .report-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .status-badge {
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .status-pending {
+            background: rgba(255, 200, 80, 0.15);
+            border: 1px solid rgba(255, 200, 80, 0.3);
+            color: #ffd166;
+        }
+
+        .status-accepted {
+            background: rgba(80, 255, 120, 0.15);
+            border: 1px solid rgba(80, 255, 120, 0.3);
+            color: #69ff8a;
+        }
+
+        .status-rejected {
+            background: rgba(255, 80, 80, 0.15);
+            border: 1px solid rgba(255, 80, 80, 0.3);
+            color: #ff6b6b;
+        }
+
+        .report-summary {
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            overflow: hidden;
+            max-height: 50px;
+        }
+
+        .report-meta {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            color: rgba(255,255,255,0.4);
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .report-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.4);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+        }
+
+        .comment-box {
+            background: rgba(255, 200, 80, 0.08);
+            border: 1px solid rgba(255, 200, 80, 0.2);
+            border-radius: 8px;
+            padding: 12px 15px;
+            color: rgba(255,255,255,0.6);
+            font-size: 13px;
+            margin-top: 12px;
+            line-height: 1.6;
+        }
+
+        .comment-box strong {
+            color: #ffd166;
+        }
+
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .empty-state a {
+            color: #6c63ff;
+            text-decoration: none;
+        }
+
+        .submit-new-btn {
+            display: inline-block;
+            background: #6c63ff;
+            color: #fff;
+            padding: 10px 22px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: background 0.3s;
+        }
+
+        .submit-new-btn:hover {
+            background: #574fd6;
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <a href="/" class="navbar-brand">Uni<span>Scholar</span>Works</a>
+    <div class="navbar-links">
+        <a href="/">Home</a>
+        <a href="/submit_report">Submit Report</a>
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+</nav>
+
+<!-- MAIN -->
+<div class="main-content">
+    <h1 class="page-title">My Submissions</h1>
+    <p class="page-subtitle">Track the status of your submitted reports</p>
+
+    <a href="/submit_report" class="submit-new-btn">+ Submit New Report</a>
+
+    {% if reports %}
+        {% for report in reports %}
+        <div class="report-card">
+
+            <div class="report-card-header">
+                <h2 class="report-title">{{ report.get_title() }}</h2>
+
+                <!-- STATUS BADGE -->
+                {% set status = report.get_report_status() %}
+                {% if status == 'Pending' %}
+                    <span class="status-badge status-pending">⏳ Pending</span>
+                {% elif status == 'Accepted' %}
+                    <span class="status-badge status-accepted">✅ Accepted</span>
+                {% elif status == 'Rejected' %}
+                    <span class="status-badge status-rejected">❌ Rejected</span>
+                {% endif %}
+            </div>
+
+            <p class="report-summary">{{ report.get_summary() }}</p>
+
+            <div class="report-meta">
+                <span>Authors: {{ report.get_authors() | join(', ') }}</span>
+                <span>Submitted: {{ report.get_date() }}</span>
+            </div>
+
+            {% if report.get_tags() %}
+            <div class="report-tags">
+                {% for tag in report.get_tags() %}
+                    <span class="tag"># {{ tag }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- SUPERVISOR COMMENT -->
+            {% if report.get_comment() %}
+            <div class="comment-box">
+                <strong>Supervisor Comment:</strong> {{ report.get_comment() }}
+            </div>
+            {% endif %}
+
+        </div>
+        {% endfor %}
+
+    {% else %}
+        <div class="empty-state">
+            <h3>No submissions yet</h3>
+            <p style="margin-bottom: 20px;">You have not submitted any reports yet</p>
+            <a href="/submit_report">Submit your first report →</a>
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

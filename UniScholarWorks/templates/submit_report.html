@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Report - UniScholarWorks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        
+        .navbar {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 15px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-brand {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .navbar-brand span {
+            color: #6c63ff;
+        }
+
+        .back-btn {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* MAIN */
+        .main-content {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-title {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .form-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 35px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+            color: rgba(255,255,255,0.7);
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: border 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #6c63ff;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group select option {
+            background: #302b63;
+            color: #fff;
+        }
+
+        
+        .form-group input[type="file"] {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .form-group input[type="file"]::-webkit-file-upload-button {
+            background: #6c63ff;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            margin-right: 10px;
+        }
+
+        .form-group input[type="file"]::-webkit-file-upload-button:hover {
+            background: #574fd6;
+        }
+
+        
+        .author-input-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .author-input-row input {
+            flex: 1;
+        }
+
+        .remove-author-btn {
+            background: rgba(255, 80, 80, 0.2);
+            border: 1px solid rgba(255, 80, 80, 0.3);
+            color: #ff6b6b;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.3s;
+        }
+
+        .remove-author-btn:hover {
+            background: rgba(255, 80, 80, 0.35);
+        }
+
+        .add-author-btn {
+            background: rgba(108, 99, 255, 0.15);
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            color: #a89fff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.3s;
+            margin-top: 5px;
+        }
+
+        .add-author-btn:hover {
+            background: rgba(108, 99, 255, 0.3);
+        }
+
+        
+        .common-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .common-tag {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .common-tag:hover {
+            background: rgba(108, 99, 255, 0.2);
+            border-color: #6c63ff;
+            color: #a89fff;
+        }
+
+        
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #6c63ff;
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: #574fd6;
+        }
+
+        .error-msg {
+            background: rgba(255, 80, 80, 0.15);
+            border: 1px solid rgba(255, 80, 80, 0.3);
+            color: #ff6b6b;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .success-msg {
+            background: rgba(80, 255, 120, 0.15);
+            border: 1px solid rgba(80, 255, 120, 0.3);
+            color: #69ff8a;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .hint {
+            color: rgba(255,255,255,0.35);
+            font-size: 12px;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <a href="/" class="navbar-brand">Uni<span>Scholar</span>Works</a>
+    <a href="/" class="back-btn">← Back to Home</a>
+</nav>
+
+<!-- MAIN -->
+<div class="main-content">
+    <h1 class="page-title">Submit Report</h1>
+    <p class="page-subtitle">Fill in the details of your academic report</p>
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="{{ 'success-msg' if category == 'success' else 'error-msg' }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="form-card">
+        <form method="POST" action="/submit_report" enctype="multipart/form-data">
+
+            <!-- TITLE -->
+            <div class="form-group">
+                <label>Report Title *</label>
+                <input type="text" name="title"
+                       placeholder="Enter the report title" required>
+            </div>
+
+            <!-- REPORT TYPE -->
+            <div class="form-group">
+                <label>Report Type *</label>
+                <select name="report_type" required>
+                    <option value="" disabled selected>Select report type</option>
+                    <option value="thesis">Thesis</option>
+                    <option value="research">Research</option>
+                    <option value="project">Project</option>
+                    <option value="internship">Internship</option>
+                </select>
+            </div>
+
+            <!-- AUTHORS -->
+            <div class="form-group">
+                <label>Author Student IDs *</label>
+                <div id="authors-container">
+                    <div class="author-input-row">
+                        <input type="text" name="authors[]"
+                               placeholder="Enter student ID"
+                               value="{{ session.user_id }}">
+                    </div>
+                </div>
+                <button type="button" class="add-author-btn"
+                        onclick="addAuthor()">+ Add Another Author</button>
+                <p class="hint">Enter the student ID of each author</p>
+            </div>
+
+            <!-- SUPERVISOR -->
+            <div class="form-group">
+                <label>Supervisor *</label>
+                <select name="supervisor_id" required>
+                    <option value="" disabled selected>Select supervisor</option>
+                    {% for supervisor in supervisors %}
+                        <option value="{{ supervisor.teacher_id }}">
+                            {{ supervisor.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div class="form-group">
+                <label>Summary / Description</label>
+                <textarea name="description"
+                          placeholder="Write a short summary of your report..."></textarea>
+            </div>
+
+            <!-- LINK -->
+            <div class="form-group">
+                <label>External Link (optional)</label>
+                <input type="url" name="report_link"
+                       placeholder="https://github.com/your-project">
+                <p class="hint">Link to GitHub, Google Drive, or any external resource</p>
+            </div>
+
+            <!-- TAGS -->
+            <div class="form-group">
+                <label>Tags (optional)</label>
+                <input type="text" name="tags" id="tags-input"
+                       placeholder="e.g. machine learning, python, web">
+                <p class="hint">Separate tags with commas</p>
+
+                {% if common_tags %}
+                <div class="common-tags">
+                    {% for tag in common_tags %}
+                        <span class="common-tag"
+                              onclick="addTag('{{ tag }}')">{{ tag }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- PDF UPLOAD -->
+            <div class="form-group">
+                <label>Upload PDF (optional)</label>
+                <input type="file" name="pdf_file" accept=".pdf">
+                <p class="hint">Only PDF files are allowed</p>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Report</button>
+
+        </form>
+    </div>
+</div>
+
+<script>
+    function addAuthor() {
+        const container = document.getElementById('authors-container');
+        const row = document.createElement('div');
+        row.className = 'author-input-row';
+        row.innerHTML = `
+            <input type="text" name="authors[]" placeholder="Enter student ID">
+            <button type="button" class="remove-author-btn"
+                    onclick="this.parentElement.remove()">Remove</button>
+        `;
+        container.appendChild(row);
+    }
+
+    function addTag(tag) {
+        const input = document.getElementById('tags-input');
+        const current = input.value.trim();
+        if (current === '') {
+            input.value = tag;
+        } else {
+            const tags = current.split(',').map(t => t.trim());
+            if (!tags.includes(tag)) {
+                input.value = current + ', ' + tag;
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

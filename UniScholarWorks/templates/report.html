@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report - UniScholarWorks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        
+        .navbar {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 15px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-brand {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .navbar-brand span {
+            color: #6c63ff;
+        }
+
+        .back-btn {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        
+        .main-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .report-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .report-header {
+            margin-bottom: 30px;
+        }
+
+        .report-type-badge {
+            background: rgba(108, 99, 255, 0.2);
+            border: 1px solid rgba(108, 99, 255, 0.4);
+            color: #a89fff;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .report-title {
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .report-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            color: rgba(255,255,255,0.5);
+            font-size: 13px;
+        }
+
+        .report-meta span {
+            color: #a89fff;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            margin: 25px 0;
+        }
+
+        .section-title {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 12px;
+        }
+
+        .section-content {
+            color: rgba(255,255,255,0.75);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .tags-list {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .report-link a {
+            color: #6c63ff;
+            text-decoration: none;
+            font-size: 14px;
+            word-break: break-all;
+        }
+
+        .report-link a:hover {
+            text-decoration: underline;
+        }
+
+        .supervisor-box {
+            background: rgba(108, 99, 255, 0.1);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px 20px;
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+        }
+
+        .supervisor-box span {
+            color: #a89fff;
+            font-weight: 600;
+        }
+
+        .comment-box {
+            background: rgba(255, 200, 80, 0.08);
+            border: 1px solid rgba(255, 200, 80, 0.2);
+            border-radius: 10px;
+            padding: 15px 20px;
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* DOWNLOAD BUTTON */
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #6c63ff;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .download-btn:hover {
+            background: #574fd6;
+        }
+
+        .download-box {
+            background: rgba(108, 99, 255, 0.08);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .download-box-text {
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+        }
+
+        .download-box-text strong {
+            color: #fff;
+            display: block;
+            margin-bottom: 4px;
+            font-size: 15px;
+        }
+
+        
+        .pdf-locked-box {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 18px 20px;
+            color: rgba(255,255,255,0.4);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <a href="/" class="navbar-brand">Uni<span>Scholar</span>Works</a>
+    <a href="/" class="back-btn">← Back to Home</a>
+</nav>
+
+<!-- MAIN -->
+<div class="main-content">
+
+    {% if report %}
+    <div class="report-card">
+
+        <div class="report-header">
+            <div class="report-type-badge">{{ report.get_report_type() }}</div>
+            <h1 class="report-title">{{ report.get_title() }}</h1>
+
+            <div class="report-meta">
+                <div>Authors: <span>{{ report.get_authors() | join(', ') }}</span></div>
+                <div>Published: <span>{{ report.get_date() }}</span></div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- SUMMARY -->
+        <div style="margin-bottom: 25px;">
+            <p class="section-title">Summary</p>
+            <p class="section-content">{{ report.get_summary() }}</p>
+        </div>
+
+        <!-- SUPERVISOR -->
+        <div style="margin-bottom: 25px;">
+            <p class="section-title">Supervisor</p>
+            <div class="supervisor-box">
+                Supervised by <span>{{ report.get_supervisor() }}</span>
+            </div>
+        </div>
+
+        <!-- TAGS -->
+        {% if report.get_tags() %}
+        <div style="margin-bottom: 25px;">
+            <p class="section-title">Tags</p>
+            <div class="tags-list">
+                {% for tag in report.get_tags() %}
+                    <span class="tag"># {{ tag }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- EXTERNAL LINK -->
+        {% if report.get_link() %}
+        <div style="margin-bottom: 25px;">
+            <p class="section-title">External Link</p>
+            <div class="report-link">
+                <a href="{{ report.get_link() }}" target="_blank">
+                    {{ report.get_link() }}
+                </a>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- PDF DOWNLOAD -->
+        {% if report.get_file_id() %}
+        <div style="margin-bottom: 25px;">
+            <p class="section-title">PDF Document</p>
+            {% if report.get_pdf_allowed() %}
+            <div class="download-box">
+                <div class="download-box-text">
+                    <strong>📄 Report PDF Available</strong>
+                    Click the button to download the full report
+                </div>
+                <a href="/download/{{ report.get_file_id() }}"
+                   class="download-btn">
+                    ⬇ Download PDF
+                </a>
+            </div>
+            {% else %}
+            <div class="pdf-locked-box">
+                🔒 The PDF for this report is not available for public download.
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <!-- SUPERVISOR COMMENT -->
+        {% if report.get_comment() %}
+        <div style="margin-bottom: 25px;">
+            <p class="section-title">Supervisor Comment</p>
+            <div class="comment-box">
+                {{ report.get_comment() }}
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+
+    {% else %}
+    <div style="text-align:center; padding: 60px; color: rgba(255,255,255,0.4);">
+        <h3>Report not found</h3>
+        <p style="margin-top:10px;">
+            <a href="/" style="color:#6c63ff;">Go back home</a>
+        </p>
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

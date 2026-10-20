@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Registration - UniScholarWorks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .register-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .register-title {
+            text-align: center;
+            color: #fff;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .register-subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            color: rgba(255,255,255,0.7);
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+
+        .form-group input:focus {
+            border-color: #6c63ff;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 13px;
+            background: #6c63ff;
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 5px;
+        }
+
+        .register-btn:hover {
+            background: #574fd6;
+        }
+
+        .error-msg {
+            background: rgba(255, 80, 80, 0.15);
+            border: 1px solid rgba(255, 80, 80, 0.3);
+            color: #ff6b6b;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .success-msg {
+            background: rgba(80, 255, 120, 0.15);
+            border: 1px solid rgba(80, 255, 120, 0.3);
+            color: #69ff8a;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255,255,255,0.5);
+            font-size: 13px;
+        }
+
+        .login-link a {
+            color: #6c63ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="register-container">
+    <h1 class="register-title">Teacher Registration</h1>
+    <p class="register-subtitle">Create your teacher account</p>
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="{{ 'success-msg' if category == 'success' else 'error-msg' }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/register_teacher">
+
+        <div class="form-group">
+            <label>Teacher ID</label>
+            <input type="text" name="teacher_id" placeholder="Enter your teacher ID" required>
+        </div>
+
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" name="name" placeholder="Enter your full name" required>
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="At least 6 characters" required>
+        </div>
+
+        <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" name="confirm_password" placeholder="Repeat your password" required>
+        </div>
+
+        <div class="form-group">
+            <label>Teacher Registration Code</label>
+            <input type="password" name="teacher_code" placeholder="Enter the registration code" required>
+        </div>
+
+        <button type="submit" class="register-btn">Register as Teacher</button>
+    </form>
+
+    <div class="login-link">
+        Already have an account? <a href="/login">Login here</a>
+    </div>
+</div>
+
+</body>
+</html>

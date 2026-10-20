@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - UniScholarWorks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0f0c29;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .login-title {
+            text-align: center;
+            color: #fff;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .login-subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            margin-bottom: 25px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 4px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            color: rgba(255,255,255,0.5);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: #6c63ff;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: rgba(255,255,255,0.7);
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        /* FIX: placeholder was invisible on dark background */
+        .form-group input::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+
+        .form-group input:focus {
+            border-color: #6c63ff;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 13px;
+            background: #6c63ff;
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 5px;
+        }
+
+        .login-btn:hover {
+            background: #574fd6;
+        }
+
+        .error-msg {
+            background: rgba(255, 80, 80, 0.15);
+            border: 1px solid rgba(255, 80, 80, 0.3);
+            color: #ff6b6b;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255,255,255,0.5);
+            font-size: 13px;
+        }
+
+        .register-link a {
+            color: #6c63ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h1 class="login-title">UniScholarWorks</h1>
+    <p class="login-subtitle">Academic Research Repository</p>
+
+    <!-- Tab buttons -->
+    <div class="tab-buttons">
+        <button class="tab-btn {% if user_type == 'teacher' %}{% else %}active{% endif %}"
+                onclick="setType('student')" type="button">
+            Student
+        </button>
+        <button class="tab-btn {% if user_type == 'teacher' %}active{% endif %}"
+                onclick="setType('teacher')" type="button">
+            Teacher
+        </button>
+    </div>
+
+    <!-- Error message -->
+    {% if error %}
+    <div class="error-msg">{{ error }}</div>
+    {% endif %}
+
+    <!-- Login form -->
+    <form method="POST" action="/login">
+        <input type="hidden" name="user_type" id="user_type"
+               value="{{ user_type if user_type else 'student' }}">
+
+        <div class="form-group">
+            <label>Student/Teacher ID or Email</label>
+            <input type="text" name="userid" placeholder="Enter your ID or email" required>
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Enter your password" required>
+        </div>
+
+        <button type="submit" class="login-btn">Login</button>
+    </form>
+
+    <div class="register-link">
+        Don't have an account?
+        <a href="/register" id="register-link">Register here</a>
+    </div>
+</div>
+
+<script>
+    function setType(type) {
+        document.getElementById('user_type').value = type;
+
+        
+        const btns = document.querySelectorAll('.tab-btn');
+        btns.forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+
+        
+        const link = document.getElementById('register-link');
+        if (type === 'teacher') {
+            link.href = '/register_teacher';
+            link.textContent = 'Register as Teacher';
+        } else {
+            link.href = '/register';
+            link.textContent = 'Register here';
+        }
+    }
+
+    
+    window.addEventListener('DOMContentLoaded', function () {
+        const currentType = document.getElementById('user_type').value;
+        if (currentType === 'teacher') {
+            const link = document.getElementById('register-link');
+            link.href = '/register_teacher';
+            link.textContent = 'Register as Teacher';
+        }
+    });
+</script>
+
+</body>
+</html>
